@@ -10,7 +10,7 @@ const DisplayModal = ({ batchesData, handleClose, setShowModal }) => {
 
   const handleDelete = async (id) => {
     console.log(id);
-    const response = await fetch(`http://localhost:5000/deleteBatch/${id}`, {
+    const response = await fetch(`https://scheduler-server-pepcoding.herokuapp.com/deleteBatch/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-type': 'application/json'

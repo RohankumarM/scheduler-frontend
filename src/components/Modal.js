@@ -20,7 +20,7 @@ const Modal = ({ eventDate, handleClose }) => {
       endTime: endTime
     };
 
-    const response = await fetch("http://localhost:5000/addBatch", {
+    const response = await fetch("https://scheduler-server-pepcoding.herokuapp.com/addBatch", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

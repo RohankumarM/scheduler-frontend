@@ -54,7 +54,7 @@ const MonthView = ({ moveLeftRight, teacher, showAddModal }) => {
     console.log(date);
 
 
-    const response = await fetch(`http://localhost:5000/getRecords?date=${date}`);
+    const response = await fetch(`https://scheduler-server-pepcoding.herokuapp.com/getRecords?date=${date}`);
     const data = await response.json();
     setBatchesData(data);
 
