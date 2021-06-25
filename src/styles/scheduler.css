@@ -1,0 +1,95 @@
+.scheduler{
+  display: flex;
+  flex-direction: column;
+}
+
+.scheduler--top-section{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 110px;
+}
+
+.carrousel--change{
+  display: flex;
+  align-items: center;
+}
+
+.month-display{
+  margin-bottom: 6px;
+  margin-left: 15px;
+}
+
+.month-display span{
+  display: flex;
+  justify-content: space-between;
+}
+
+.carrousel--change--btn{
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  margin: 5px;
+}
+
+.carrousel--change--btn.left:hover, .carrousel--change--btn.right:hover{
+  display: absolute;
+  border-radius: 50%;
+  background-size: 10px;
+  background-color: lightgrey;
+}
+
+.teacher-selection{
+  padding: 15px 35px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  border-color: #B9BBB6;
+  cursor: pointer;
+}
+
+.teacher-selection:hover{
+  outline: none;
+  background-color: rgb(231, 231, 231);
+}
+
+.teacher-selection option{
+  margin: 40px;
+  font-size: 20px;
+  background: white;
+}
+
+.view--change-selection{
+  padding: 15px 35px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  border-color: #B9BBB6;
+  cursor: pointer;
+}
+
+.scheduler--view{
+  justify-content: center;
+  margin: 0px 100px 0px 100px;
+}
+
+.add-batch-btn--bottom{
+  position: fixed;
+  border: none;
+  background: none;
+  cursor: pointer;
+  bottom: 4em;
+  margin-right: 20px;
+  right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-batch-btn--bottom:hover{
+  border: 1px solid red;
+  border-radius: 50px;
+  height: 50px;
+  box-shadow: 0 2px 4px 0 coral, 0 3px 12px 0 coral;
+}

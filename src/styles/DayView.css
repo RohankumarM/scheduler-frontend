@@ -1,0 +1,68 @@
+.day-view {
+  width: 770px;
+}
+
+.day-view--weekdays {
+  width: 100%;
+  display: flex;
+}
+
+.day-view--weekdays div {
+  width: 100px;
+  padding: 20px;
+  text-align: center;
+}
+
+.day-view--bottom {
+  margin-top: 10px;
+  height: 50px;
+}
+
+.day-view--container {
+  width: 100%;
+  margin: auto;
+  display: flex;
+}
+
+.day-view--calendar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 110px;
+  font-size: 25px;
+  font-weight: 500;
+  background-color: white;
+  text-align: center;
+}
+
+.day-view--time {
+  width: 870px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 100px;
+}
+
+.day-view--time-container {
+  display: flex;
+  justify-content: space-between;
+  margin-left: -40px;
+}
+
+.day-view--time-container p {
+  margin-right: 10px;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.day-view-box {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 110px;
+  cursor: pointer;
+  box-sizing: border-box;
+  background-color: white;
+  box-shadow: 0px 0px 3px #d0d4cb;
+}
