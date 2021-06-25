@@ -76,7 +76,7 @@ const MonthView = ({ moveLeftRight, teacher, showAddModal }) => {
   useEffect(() => {
     console.log("first");
     async function fetchAllRecords() {
-      let response = await fetch('http://localhost:5000/getAllRecords')
+      let response = await fetch('https://scheduler-server-pepcoding.herokuapp.com/getAllRecords')
       let data = await response.json()
       setAllBatchesData(data);
     }
