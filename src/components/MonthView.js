@@ -32,7 +32,7 @@ const MonthView = ({ moveLeftRight, teacher, showAddModal }) => {
       date.setMonth(new Date().getMonth() + moveLeftRight);
     }
 
-    const day = date.getDay();
+    // const day = date.getDay();
     const month = date.getMonth();
     const year = date.getFullYear();
 

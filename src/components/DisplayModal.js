@@ -18,7 +18,7 @@ const DisplayModal = ({ batchesData, handleClose, setShowModal }) => {
     });
     handleClose();
 
-    const data = await response.json();
+    // const data = await response.json();
   }
 
   return (
