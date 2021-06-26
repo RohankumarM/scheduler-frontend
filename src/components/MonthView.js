@@ -52,10 +52,14 @@ const MonthView = ({ moveLeftRight, teacher, showAddModal }) => {
   const displayModal = async (date) => {
     setEventDate(date);
     console.log(date);
+    
+    let offsetDate = parseInt(date.substring(8, 10)) - 1;
+    let newDate = date.substring(0, 8) + `${offsetDate}`;
 
 
-    const response = await fetch(`https://scheduler-server-pepcoding.herokuapp.com/getRecords?date=${date}`);
+    const response = await fetch(`https://scheduler-server-pepcoding.herokuapp.com/getRecords?date=${newDate}`);
     const data = await response.json();
+    console.log(data);
     setBatchesData(data);
 
     if (data.length > 0) {
@@ -64,6 +68,7 @@ const MonthView = ({ moveLeftRight, teacher, showAddModal }) => {
       setShowModal(true);
     }
   }
+  console.log(batchesData);
 
   const handleClose = () => {
     setShowModal(false);

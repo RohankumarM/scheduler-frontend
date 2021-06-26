@@ -20,6 +20,8 @@ const Modal = ({ eventDate, handleClose }) => {
       endTime: endTime
     };
 
+    console.log(date);
+
     const response = await fetch("https://scheduler-server-pepcoding.herokuapp.com/addBatch", {
       method: 'POST',
       headers: {
