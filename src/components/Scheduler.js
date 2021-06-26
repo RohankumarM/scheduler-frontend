@@ -26,8 +26,9 @@ const Scheduler = () => {
 
   useEffect(() => {
     console.log(moveLeftRight);
-    // if (view === 'Month') {
-      let monthArr = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    let monthArr = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+    if (view === 'Month') {
       const newMonth = (new Date().getMonth() + moveLeftRight) % 12;
       setCurrentMonth(monthArr[newMonth]);
       if (new Date().getMonth() - 1 + moveLeftRight >= 11) {
@@ -35,16 +36,29 @@ const Scheduler = () => {
       } else {
         setCurrentYear(new Date().getFullYear());
       }
-    // }else if(view === 'Week'){
-    //   let monthArr = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    //   let newDate = (new Date().getDate() + moveLeftRight) % (new Date().getDate() + 1);
-    //   setCurrentMonth(monthArr[newDate]);
-    //   if (new Date().getMonth() - 1 + moveLeftRight >= 11) {
-    //     setCurrentYear(new Date().getFullYear() + 1);
-    //   } else {
-    //     setCurrentYear(new Date().getFullYear());
-    //   }
-    // }
+    } else if (view === 'Day') {
+      let dt = new Date();
+      if (moveLeftRight !== 0) {
+        dt.setDate(dt.getDate() + moveLeftRight);
+        setCurrentMonth(monthArr[dt.getMonth()]);
+        setCurrentYear(dt.getFullYear());
+      }
+      else {
+        setCurrentMonth(monthArr[dt.getMonth()]);
+        setCurrentYear(dt.getFullYear());
+      }
+    } else if (view === 'Month') {
+      let dt = new Date();
+      if (moveLeftRight !== 0) {
+        dt.setDate(dt.getDate() + moveLeftRight);
+        setCurrentMonth(monthArr[dt.getMonth()]);
+        setCurrentYear(dt.getFullYear());
+      }
+      else {
+        setCurrentMonth(monthArr[dt.getMonth()]);
+        setCurrentYear(dt.getFullYear());
+      }
+    }
   }, [moveLeftRight]);
 
   return (
@@ -100,7 +114,7 @@ const Scheduler = () => {
         </div>}
 
         {view === 'Day' && <div className="scheduler--view">
-          <DayView />
+          <DayView moveLeftRight={moveLeftRight} />
         </div>}
       </div>
 

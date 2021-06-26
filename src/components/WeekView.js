@@ -7,7 +7,7 @@ const WeekView = ({ moveLeftRight }) => {
   const boxes = createRef();
   let daysInMonth;
   let paddingDaysOfMonth;
-  let todayDate;
+  let startDateOfWeek;
 
   useEffect(() => {
     drawBoxes();
@@ -18,36 +18,27 @@ const WeekView = ({ moveLeftRight }) => {
     printCalendar();
   }, [moveLeftRight]);
 
+  console.log(startDateOfWeek);
+
   const CalendarUtil = () => {
     const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
     const date = new Date();
 
-    if (moveLeftRight !== 0) {
-      date.setDate(new Date().getDate());
-      todayDate = new Date().getDate() + moveLeftRight * 7;
-    }else{
-      todayDate = new Date().getDate();
+    //to get start date of week
+    function getSunday(d) {
+      d = new Date(d);
+      let day = d.getDay(),
+        diff = d.getDate() - day + (day === 0 ? -6 : 0); // adjust when day is sunday
+      return new Date(d.setDate(diff));
     }
+    startDateOfWeek = parseInt(getSunday(new Date()).toString().substring(8, 10));
 
-    const day = date.getDay();
-    const month = date.getMonth();
-    const year = date.getFullYear();
-
-    const startingDateOfMonth = new Date(year, month, date);
-    daysInMonth = new Date(year, month + 1, 0).getDate();
-
-    console.log(startingDateOfMonth);
-    const dateInStringFormat = startingDateOfMonth.toLocaleDateString('en-us', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'numeric',
-      day: 'numeric'
-    });
-    console.log(dateInStringFormat);
-
-    paddingDaysOfMonth = weekdays.indexOf(dateInStringFormat.split(", ")[0]);
-    console.log(paddingDaysOfMonth)
+    if (moveLeftRight !== 0) {
+      date.setDate(date.getDate() + 7);
+      getSunday(new Date(date));
+    }
+    getSunday(new Date());
   }
 
   const printCalendar = () => {
@@ -57,8 +48,8 @@ const WeekView = ({ moveLeftRight }) => {
 
     calendar.current.innerHTML = '';
 
-    console.log(padding, days);
-    for (let i = 1; i <= days + moveLeftRight * 6; i++) {
+    for (let i = startDateOfWeek; i < startDateOfWeek + 7; i++) {
+      console.log(i, startDateOfWeek, new Date().getDate());
       const daysSquare = document.createElement('div');
       daysSquare.classList.add('week-view--calendar');
       let date = new Date();
@@ -72,12 +63,14 @@ const WeekView = ({ moveLeftRight }) => {
 
       const clickedDate = `${currentYear}-${('0' + currentMonth).slice(-2)}-${('0' + (i - padding)).slice(-2)}`;
 
-      if (i > padding) {
-        daysSquare.innerText = i - padding;
+      if (i > 0 && i !== new Date().getDate()) {
+        daysSquare.innerText = i;
 
         // daysSquare.addEventListener('click', () => displayModal(clickedDate));
-      } else {
-        // daysSquare.innerText = days;
+      } else if(i === new Date().getDate()) {
+        daysSquare.innerText = i;
+        console.log("Enter")
+        daysSquare.classList.add('selected');
       }
 
       calendar.current.appendChild(daysSquare);

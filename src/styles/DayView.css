@@ -5,12 +5,14 @@
 .day-view--weekdays {
   width: 100%;
   display: flex;
+  flex-direction: column;
 }
 
 .day-view--weekdays div {
   width: 100px;
-  padding: 20px;
+  padding: 5px;
   text-align: center;
+  margin-left: 10px;
 }
 
 .day-view--bottom {
@@ -50,7 +52,7 @@
 }
 
 .day-view--time-container p {
-  margin-right: 10px;
+  margin-right: 20px;
   font-size: 15px;
   font-weight: 400;
 }
@@ -58,11 +60,9 @@
 .day-view-box {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  width: 110px;
+  width: 770px;
+  margin-left: 20px;
   cursor: pointer;
-  box-sizing: border-box;
   background-color: white;
   box-shadow: 0px 0px 3px #d0d4cb;
 }

@@ -35,6 +35,17 @@
   text-align: center;
 }
 
+.week-view--calendar.selected{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1a73e8;
+  color: white;
+  border-radius: 50%;
+  width: 50px;
+  margin: auto;
+}
+
 .week-view--time {
   width: 870px;
   display: flex;

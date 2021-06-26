@@ -1,13 +1,31 @@
-import React, { useEffect, createRef } from 'react';
+import React, { useState, useEffect, createRef } from 'react';
 import '../styles/DayView.css';
 
-const DayView = () => {
+const DayView = ({ moveLeftRight }) => {
+
+  let dt = new Date();
+  let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+  const [todayDate, setTodayDate] = useState(dt.getDate());
+  const [todayDay, setTodayDay] = useState(dt.getDay());
 
   const boxes = createRef();
 
   useEffect(() => {
-    drawBoxes();
   }, []);
+
+  useEffect(() => {
+    drawBoxes();
+    if(moveLeftRight !== 0){
+      dt.setDate(dt.getDate() + moveLeftRight);
+      setTodayDate(dt.getDate());
+      setTodayDay(dt.getDay());
+    }else{
+      setTodayDate(dt.getDate());
+      setTodayDay(dt.getDay());
+    }
+    
+  }, [moveLeftRight]);
 
   const drawBoxes = () => {
     let boxesDesign = document.querySelector('.day-view--time');
@@ -21,7 +39,7 @@ const DayView = () => {
         numberDiv.innerText = i + ' AM';
       }
       parentDiv.appendChild(numberDiv);
-      for (let j = 0; j < 7; j++) {
+      for (let j = 0; j < 1; j++) {
         var boxDiv = document.createElement('div');
         boxDiv.classList.add('day-view-box');
         parentDiv.append(boxDiv);
@@ -34,7 +52,8 @@ const DayView = () => {
     <div className="day-view">
       <div className="day-view--top">
         <div className="day-view--weekdays">
-          <div>Sunday</div>
+          <div>{todayDate}</div>
+          <div>{days[todayDay]}</div>
         </div>
         <div className="day-view--container">
         </div>
