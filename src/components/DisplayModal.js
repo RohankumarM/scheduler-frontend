@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/DisplayModal.css';
 
-const DisplayModal = ({ batchesData, handleClose, setShowModal }) => {
+const DisplayModal = ({ batchesData, handleClose, setShowModal, fetchAllRecords }) => {
   console.log(batchesData);
   const handleAddBatch = () => {
     handleClose();
@@ -10,12 +10,17 @@ const DisplayModal = ({ batchesData, handleClose, setShowModal }) => {
 
   const handleDelete = async (id) => {
     console.log(id);
-    const response = await fetch(`https://scheduler-server-pepcoding.herokuapp.com/deleteBatch/${id}`, {
+    const response = await fetch(`http://localhost:5000/deleteBatch/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-type': 'application/json'
       }
     });
+    if(response.status === '200'){
+      alert('Successfully deleted!');
+    }
+    console.log(response);
+    fetchAllRecords();
     handleClose();
 
     // const data = await response.json();
@@ -38,7 +43,7 @@ const DisplayModal = ({ batchesData, handleClose, setShowModal }) => {
                 <th>StartTime</th>
                 <th>EndTime</th>
               </tr>
-              {batchesData === null ? <div>NO DATA FOUND</div>: batchesData.map((data, key) => {
+              {batchesData === null ? <div>NO DATA FOUND</div> : batchesData.map((data, key) => {
                 return (<tr key={data.TID}>
                   <td>{data.Name}</td>
                   <td>{data.Topic}</td>
@@ -46,14 +51,14 @@ const DisplayModal = ({ batchesData, handleClose, setShowModal }) => {
                   <td>{new Date(data.Date).toDateString()}</td>
                   <td>{data.StartTime}</td>
                   <td>{data.EndTime}</td>
-                  <td><button onClick={() => handleDelete(data.TID)}>Delete</button></td>
+                  <td><button className="displayModal-delete-btn" onClick={() => handleDelete(data.TID)}>Delete</button></td>
                 </tr>);
               })}
             </table>
           </div>
           <div className="displayModal--actions">
-            <button onClick={handleClose}>Close</button>
-            <button onClick={handleAddBatch}>Add Batch</button>
+            <button className="displayModal-btn" onClick={handleAddBatch}>Add Batch</button>
+            <button className="displayModal-btn" onClick={handleClose}>Close</button>
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, createRef } from 'react';
 import '../styles/DayView.css';
 
-const DayView = ({ moveLeftRight }) => {
+const DayView = ({ moveLeftRight, teacher }) => {
 
   let dt = new Date();
   let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -16,16 +16,22 @@ const DayView = ({ moveLeftRight }) => {
 
   useEffect(() => {
     drawBoxes();
-    if(moveLeftRight !== 0){
+    if (moveLeftRight !== 0) {
       dt.setDate(dt.getDate() + moveLeftRight);
       setTodayDate(dt.getDate());
       setTodayDay(dt.getDay());
-    }else{
+    } else {
       setTodayDate(dt.getDate());
       setTodayDay(dt.getDay());
     }
-    
+
   }, [moveLeftRight]);
+
+  useEffect(() => {
+    if(teacher === 'All'){
+      
+    }
+  }, [teacher]);
 
   const drawBoxes = () => {
     let boxesDesign = document.querySelector('.day-view--time');

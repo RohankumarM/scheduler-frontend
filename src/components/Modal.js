@@ -22,7 +22,7 @@ const Modal = ({ eventDate, handleClose }) => {
 
     console.log(date);
 
-    const response = await fetch("https://scheduler-server-pepcoding.herokuapp.com/addBatch", {
+    const response = await fetch("http://localhost:5000/addBatch", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -32,9 +32,9 @@ const Modal = ({ eventDate, handleClose }) => {
 
     const data = await response.json();
     if (data.message === 'Batch collision occurred!') {
-      alert('Batch collision occurred');
+      alert('Batch collision occurred, try adding again!');
     } else {
-      alert(data.message);
+      alert("Successfully added!");
     }
     handleClose();
   }
@@ -47,7 +47,7 @@ const Modal = ({ eventDate, handleClose }) => {
     <div className="modal">
       <h1>Add Batch</h1>
       <div className="modal-container">
-        <form className="addBatches" onSubmit={handleAddBatch}>
+        <form className="addBatches">
           <div>
             <select className="teacher-selection" required onChange={(e) => setTeacher(e.target.value)}>
               <option value="none" defaultValue="Select A Teacher" selected disabled hidden>Select A Teacher</option>
@@ -58,11 +58,11 @@ const Modal = ({ eventDate, handleClose }) => {
           </div>
           <div className="modal-elements">
             <label>Add Topic:</label>
-            <input type="text" required placeholder="Enter Topic" onChange={(e) => setBatch(e.target.value)} />
+            <input type="text" required placeholder="Enter Topic" onChange={(e) => setTopic(e.target.value)} />
           </div>
           <div className="modal-elements">
             <label>Add Batch Number:</label>
-            <input type="text" required placeholder="Enter Batch" onChange={(e) => setTopic(e.target.value)} />
+            <input type="text" required placeholder="Enter Batch" onChange={(e) => setBatch(e.target.value)} />
           </div>
           <div className="modal-elements">
             <label>Select Date:</label>
@@ -76,9 +76,10 @@ const Modal = ({ eventDate, handleClose }) => {
             <label>Select End Time:</label>
             <input type="time" required onChange={(e) => setEndTime(e.target.value)} />
           </div>
+          
 
-          <button onClick={handleAddBatch}>Save</button>
-          <button onClick={handleCloseModal}>Close</button>
+          <button className="form-button" onClick={handleAddBatch}>Save</button>
+          <button className="form-button" onClick={handleCloseModal}>Close</button>
         </form>
       </div>
     </div>

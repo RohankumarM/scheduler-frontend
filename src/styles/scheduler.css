@@ -1,31 +1,33 @@
-.scheduler{
+.scheduler {
+  height: 100vh;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
 }
 
-.scheduler--top-section{
+.scheduler--top-section {
   display: flex;
   justify-content: space-around;
   align-items: center;
   height: 110px;
 }
 
-.carrousel--change{
+.carrousel--change {
   display: flex;
   align-items: center;
 }
 
-.month-display{
+.month-display {
   margin-bottom: 6px;
   margin-left: 15px;
 }
 
-.month-display span{
+.month-display span {
   display: flex;
   justify-content: space-between;
 }
 
-.carrousel--change--btn{
+.carrousel--change--btn {
   background: none;
   border: none;
   cursor: pointer;
@@ -33,48 +35,64 @@
   margin: 5px;
 }
 
-.carrousel--change--btn.left:hover, .carrousel--change--btn.right:hover{
+.carrousel--change--btn.left:hover,
+.carrousel--change--btn.right:hover {
   display: absolute;
   border-radius: 50%;
   background-size: 10px;
   background-color: lightgrey;
 }
 
-.teacher-selection{
+.today-btn {
   padding: 15px 35px;
-  border-radius: 10px;
   font-size: 15px;
+  border: 1px solid #b9bbb6;
+  border-radius: 10px;
   font-weight: 500;
-  border-color: #B9BBB6;
   cursor: pointer;
+  background-color: white;
 }
 
-.teacher-selection:hover{
+.today-btn:hover{
   outline: none;
   background-color: rgb(231, 231, 231);
 }
 
-.teacher-selection option{
+.teacher-selection {
+  padding: 15px 35px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  border-color: #b9bbb6;
+  cursor: pointer;
+}
+
+.teacher-selection:hover {
+  outline: none;
+  background-color: rgb(231, 231, 231);
+}
+
+.teacher-selection option {
   margin: 40px;
   font-size: 20px;
   background: white;
 }
 
-.view--change-selection{
+.view--change-selection {
   padding: 15px 35px;
   border-radius: 10px;
   font-size: 15px;
   font-weight: 500;
-  border-color: #B9BBB6;
+  border-color: #b9bbb6;
   cursor: pointer;
 }
 
-.scheduler--view{
+.scheduler--view {
   justify-content: center;
   margin: 0px 100px 0px 100px;
 }
 
-.add-batch-btn--bottom{
+.add-batch-btn--bottom {
   position: fixed;
   border: none;
   background: none;
@@ -87,7 +105,7 @@
   align-items: center;
 }
 
-.add-batch-btn--bottom:hover{
+.add-batch-btn--bottom:hover {
   border: 1px solid red;
   border-radius: 50px;
   height: 50px;

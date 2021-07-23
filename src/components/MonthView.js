@@ -18,7 +18,9 @@ const MonthView = ({ moveLeftRight, teacher, showAddModal }) => {
 
 
   const calendar = createRef();
-  const individualBatch = createRef();
+
+  let month;
+  let year;
 
   let paddingDaysOfMonth;
   let daysInMonth;
@@ -32,12 +34,12 @@ const MonthView = ({ moveLeftRight, teacher, showAddModal }) => {
       date.setMonth(new Date().getMonth() + moveLeftRight);
     }
 
-    // const day = date.getDay();
-    const month = date.getMonth();
-    const year = date.getFullYear();
+    month = date.getMonth();
+    year = date.getFullYear();
 
     const startingDateOfMonth = new Date(year, month, 1);
     daysInMonth = new Date(year, month + 1, 0).getDate();
+    console.log(startingDateOfMonth);
 
     const dateInStringFormat = startingDateOfMonth.toLocaleDateString('en-us', {
       weekday: 'long',
@@ -45,21 +47,21 @@ const MonthView = ({ moveLeftRight, teacher, showAddModal }) => {
       month: 'numeric',
       day: 'numeric'
     });
+    console.log(dateInStringFormat);
 
     paddingDaysOfMonth = weekdays.indexOf(dateInStringFormat.split(", ")[0]);
+    console.log(paddingDaysOfMonth);
   }
 
   const displayModal = async (date) => {
     setEventDate(date);
-    console.log(date);
     
-    let offsetDate = parseInt(date.substring(8, 10)) - 1;
+    let offsetDate = parseInt(date.substring(8, 10));
     let newDate = date.substring(0, 8) + `${offsetDate}`;
 
 
-    const response = await fetch(`https://scheduler-server-pepcoding.herokuapp.com/getRecords?date=${newDate}`);
+    const response = await fetch(`http://localhost:5000/getRecords?date=${newDate}`);
     const data = await response.json();
-    console.log(data);
     setBatchesData(data);
 
     if (data.length > 0) {
@@ -68,7 +70,6 @@ const MonthView = ({ moveLeftRight, teacher, showAddModal }) => {
       setShowModal(true);
     }
   }
-  console.log(batchesData);
 
   const handleClose = () => {
     setShowModal(false);
@@ -78,26 +79,27 @@ const MonthView = ({ moveLeftRight, teacher, showAddModal }) => {
     setShowDisplaymodal(false);
   }
 
-  useEffect(() => {
-    console.log("first");
-    async function fetchAllRecords() {
-      let response = await fetch('https://scheduler-server-pepcoding.herokuapp.com/getAllRecords')
-      let data = await response.json()
-      setAllBatchesData(data);
-    }
+  async function fetchAllRecords() {
+    let response = await fetch('http://localhost:5000/getAllRecords')
+    let data = await response.json()
+    setAllBatchesData(data);
+  }
 
+  useEffect(() => {
     fetchAllRecords();
   }, []);
 
   useEffect(() => {
     CalendarUtil();
     printCalendar();
-  }, [moveLeftRight, teacher]);
+  }, [moveLeftRight, teacher, allBatchesData, setAllBatchesData]);
 
   const printCalendar = () => {
     CalendarUtil();
     const padding = paddingDaysOfMonth;
     const days = daysInMonth;
+
+    let previousMonthDayInMonths = new Date(year, month, 0).getDate();
 
     calendar.current.innerHTML = '';
 
@@ -116,6 +118,10 @@ const MonthView = ({ moveLeftRight, teacher, showAddModal }) => {
       const clickedDate = `${currentYear}-${('0' + currentMonth).slice(-2)}-${('0' + (i - padding)).slice(-2)}`;
 
       if (i > padding) {
+        if(i - padding === new Date().getDate() && currentMonth === new Date().getMonth() + 1){
+          console.log(i, new Date().getDate())
+          daysSquare.classList.add('selected');
+        }
         daysSquare.innerText = i - padding;
 
         if (allBatchesData.length > 0) {
@@ -140,13 +146,13 @@ const MonthView = ({ moveLeftRight, teacher, showAddModal }) => {
               }
             }
           })
-        } else {
-          console.log('before')
         }
 
         daysSquare.addEventListener('click', () => displayModal(clickedDate));
       } else {
-        // daysSquare.innerText = days;
+        console.log(previousMonthDayInMonths);
+        daysSquare.innerText = previousMonthDayInMonths + i - padding;
+        daysSquare.classList.add('faded');
       }
 
       calendar.current.appendChild(daysSquare);
@@ -168,13 +174,12 @@ const MonthView = ({ moveLeftRight, teacher, showAddModal }) => {
       <div className="month-view--container" ref={calendar}>
       </div>
 
-      <div className="indibatch" ref={individualBatch}></div>
-
       {showModal && <Modal
         eventDate={eventDate}
         handleClose={handleClose} />}
       {showDisplayModal && <DisplayModal
         batchesData={batchesData}
+        fetchAllRecords={fetchAllRecords}
         handleClose={handleCloseDisplayModal}
         setShowModal={setShowModal} />}
     </div>

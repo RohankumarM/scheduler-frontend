@@ -3,7 +3,7 @@ import Scheduler from './components/Scheduler';
 
 function App() {
   return (
-    <div className="App">
+    <div className="app">
       <Scheduler />
     </div>
   );

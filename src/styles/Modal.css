@@ -20,6 +20,7 @@
   background-color: white;
   width: 500px;
   height: 400px;
+  border-radius: 10px;
 }
 
 .addBatches{
@@ -51,7 +52,7 @@
   background-color: transparent;
 }
 
-.addBatches>button{
+.form-button{
   margin-top: 15px;
   border: 3px solid #e74c3c;
   border-radius: 30px;

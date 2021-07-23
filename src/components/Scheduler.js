@@ -12,10 +12,10 @@ const Scheduler = () => {
   const [moveLeftRight, setMoveLeftRight] = useState(0);
   const [currentMonth, setCurrentMonth] = useState();
   const [currentYear, setCurrentYear] = useState();
-  const [teacher, setTeacher] = useState("");
+  const [teacher, setTeacher] = useState("All");
   const [showAddModal, setShowAddModal] = useState(false);
   const [view, setView] = useState("Month");
-
+  
   const handleBottomAddBatch = () => {
     if (showAddModal) {
       setShowAddModal(false);
@@ -24,8 +24,11 @@ const Scheduler = () => {
     }
   }
 
+  const setToday = () => {
+    setMoveLeftRight(0);
+  }
+
   useEffect(() => {
-    console.log(moveLeftRight);
     let monthArr = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
     if (view === 'Month') {
@@ -47,10 +50,10 @@ const Scheduler = () => {
         setCurrentMonth(monthArr[dt.getMonth()]);
         setCurrentYear(dt.getFullYear());
       }
-    } else if (view === 'Month') {
+    } else if (view === 'Week') {
       let dt = new Date();
       if (moveLeftRight !== 0) {
-        dt.setDate(dt.getDate() + moveLeftRight);
+        dt.setDate(dt.getDate() + moveLeftRight * 7);
         setCurrentMonth(monthArr[dt.getMonth()]);
         setCurrentYear(dt.getFullYear());
       }
@@ -80,6 +83,10 @@ const Scheduler = () => {
             <span>{currentMonth}</span>
             <span>{currentYear}</span>
           </div>
+        </div>
+
+        <div>
+          <button className="today-btn" onClick={setToday}>Today</button>
         </div>
         <div>
           <select className="teacher-selection" onChange={(e) => setTeacher(e.target.value)}>
@@ -114,7 +121,9 @@ const Scheduler = () => {
         </div>}
 
         {view === 'Day' && <div className="scheduler--view">
-          <DayView moveLeftRight={moveLeftRight} />
+          <DayView
+            moveLeftRight={moveLeftRight}
+            teacher={teacher} />
         </div>}
       </div>
 
